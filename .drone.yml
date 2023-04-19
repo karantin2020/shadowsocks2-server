@@ -1,0 +1,23 @@
+kind: pipeline
+name: default
+
+clone:
+  depth: 1
+
+steps:
+  - name: publish
+    image: plugins/docker
+    settings:
+      # auto_tag: true
+      dockerfile: Dockerfile
+      tags:
+        - latest
+#        - "1.1.1"
+      password:
+        from_secret: docker_password
+      repo: node3030/docker-ssocks2
+      username:
+        from_secret: docker_username
+    when:
+      event:
+        - tag
